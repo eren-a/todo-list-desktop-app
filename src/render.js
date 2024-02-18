@@ -5,7 +5,7 @@ const body = document.body;
 
 function createInputField() {
     // delete button
-    deleteElement('.list-container', 'create');
+    deleteElement('.interface-container', 'create');
 
     // create text field
     const input = document.createElement('input')
@@ -26,7 +26,7 @@ function createInputField() {
     newTaskInput.appendChild(input);
     newTaskInput.appendChild(enterButton);
     // div at the top of the body
-    body.appendChild(newTaskInput);
+    document.querySelector('.interface-container').appendChild(newTaskInput);
 }
 
 
@@ -49,7 +49,7 @@ function addTask() {
     oldButton.id = 'create';
     oldButton.textContent = 'create';
     oldButton.onclick = createInputField;
-    document.querySelector('.list-container').appendChild(oldButton);
+    document.querySelector('.interface-container').appendChild(oldButton);
 
 }
 
