@@ -4,8 +4,8 @@ createButton.onclick = createInputField;
 const body = document.body;
 
 function createInputField() {
-    // delete button
-    deleteElement('.interface-container', 'create');
+    // hide create button
+    hideByID('create');
 
     // create text field
     const input = document.createElement('input')
@@ -44,13 +44,8 @@ function addTask() {
     createTask(description);
     // delete input, button and div
     document.querySelector('.new-Task-Input').remove();
-    // recover old button
-    const oldButton = document.createElement('button');
-    oldButton.id = 'create';
-    oldButton.textContent = 'create';
-    oldButton.onclick = createInputField;
-    document.querySelector('.interface-container').appendChild(oldButton);
-
+    // show create button
+    showByID('create');
 }
 
 
@@ -63,14 +58,61 @@ function createTask(description) {
     randomID = Math.floor(100000 + Math.random() * 900000);
     newDiv.id = randomID;
     newDiv.textContent = description;
-    // add remove button (later edit button)
+    
+    // add remove button
     const removeButton = document.createElement('button');
     removeButton.id = randomID;
     removeButton.textContent = "-";
     removeButton.onclick = function () {
         document.getElementById(removeButton.id).remove();
     };
-    // add div and button to div
+
+    //  *** TO DO ***
+
+    // add edit button
+    // const editButton = document.createElement('button');
+    // editButton.id = randomID;
+    // editButton.textContent = "?";
+    // editButton.onclick = function () {
+    //     editTask(editButton.id);
+    // };
+
+    // add div and buttons to div
     newDiv.appendChild(removeButton);
+    // newDiv.appendChild(editButton);
     allTasksDiv.appendChild(newDiv);
+}
+
+function editTask(id) {
+    // get old text content
+    const task = document.getElementById(id);
+    let oldContent = task.textContent;
+    // create input field with old text content
+    const inputField = document.createElement('input');
+    inputField.defaultValue = oldContent;
+    // enter button
+    const enterButton = document.createElement('button');
+    enterButton.id = id;
+    enterButton.textContent = "ok";
+    enterButton.onclick = function () {
+        document.getElementById(enterButton.id).remove();
+        createTask(inputField.value);
+    }
+    // add input and button to div with id
+    task.appendChild(inputField);
+    task.appendChild(enterButton);
+}
+
+function hideByID(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.style.display = 'none';
+    }
+}
+
+function showByID(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.style.display = 'block';
+    }
 }
