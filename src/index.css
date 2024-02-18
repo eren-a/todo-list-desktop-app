@@ -6,12 +6,20 @@ body {
   padding: 2rem;
 }
 
+button {
+  width: 20px;
+  height: 20px;
+  justify-self: end;
+}
+
 #create {
   width: 100px;
   height: 40px;
 }
 
 .all-tasks div {
-  width: 200px;
+  width: 400px;
   height: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
