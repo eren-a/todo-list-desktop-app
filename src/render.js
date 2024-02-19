@@ -5,7 +5,7 @@ const body = document.body;
 
 function createInputField() {
     // hide create button
-    hideByID('create');
+    hideElement('create');
 
     // create text field
     const input = document.createElement('input')
@@ -45,7 +45,7 @@ function addTask() {
     // delete input, button and div
     document.querySelector('.new-Task-Input').remove();
     // show create button
-    showByID('create');
+    showElement('create');
 }
 
 
@@ -58,61 +58,88 @@ function createTask(description) {
     randomID = Math.floor(100000 + Math.random() * 900000);
     newDiv.id = randomID;
     newDiv.textContent = description;
-    
-    // add remove button
+
+    const removeButton = addRemoveButton(randomID);
+
+    const editButton = addEditButton(randomID);
+
+    // add div and buttons to div
+    newDiv.appendChild(removeButton);
+    newDiv.appendChild(editButton);
+    allTasksDiv.appendChild(newDiv);
+}
+
+function addEditButton(id) {
+    const editButton = document.createElement('button');
+    editButton.id = id;
+    editButton.textContent = "?";
+    editButton.onclick = function () {
+        editTask(editButton.id);
+    };
+    return editButton;
+}
+
+function addRemoveButton(id) {
     const removeButton = document.createElement('button');
-    removeButton.id = randomID;
+    removeButton.id = id;
     removeButton.textContent = "-";
     removeButton.onclick = function () {
         document.getElementById(removeButton.id).remove();
     };
-
-    //  *** TO DO ***
-
-    // add edit button
-    // const editButton = document.createElement('button');
-    // editButton.id = randomID;
-    // editButton.textContent = "?";
-    // editButton.onclick = function () {
-    //     editTask(editButton.id);
-    // };
-
-    // add div and buttons to div
-    newDiv.appendChild(removeButton);
-    // newDiv.appendChild(editButton);
-    allTasksDiv.appendChild(newDiv);
+    return removeButton;
 }
 
 function editTask(id) {
+    // hide current divs
+    hideElement('all-tasks');
+    hideElement('interface-container');
+
     // get old text content
     const task = document.getElementById(id);
-    let oldContent = task.textContent;
+    // remove 2 characters (text content of buttons)
+    let oldContent = task.textContent.slice(0, -2);
+    
     // create input field with old text content
     const inputField = document.createElement('input');
+    inputField.id = '100';
     inputField.defaultValue = oldContent;
+
     // enter button
     const enterButton = document.createElement('button');
-    enterButton.id = id;
-    enterButton.textContent = "ok";
+    enterButton.id = '101';
+    enterButton.textContent = 'ok';
     enterButton.onclick = function () {
-        document.getElementById(enterButton.id).remove();
-        createTask(inputField.value);
+        document.getElementById('100').remove();
+        document.getElementById('101').remove();
+        // document.getElementById(id).remove();
+        // createTask(inputField.value);
+        document.getElementById(id).textContent = inputField.value;
+        task.appendChild(addRemoveButton(id));
+        task.appendChild(addEditButton(id));
+        showElement('all-tasks');
+        showElement('interface-container');
     }
     // add input and button to div with id
-    task.appendChild(inputField);
-    task.appendChild(enterButton);
+    body.appendChild(inputField);
+    body.appendChild(enterButton);
 }
 
-function hideByID(id) {
-    const element = document.getElementById(id);
+function hideElement(id) {
+    let element = document.getElementById(id);
     if (element) {
+        element.style.display = 'none';
+    } else {
+        element = document.getElementsByClassName(id)[0];
         element.style.display = 'none';
     }
 }
 
-function showByID(id) {
-    const element = document.getElementById(id);
+function showElement(id) {
+    let element = document.getElementById(id);
     if (element) {
+        element.style.display = 'block';
+    } else {
+        element = document.getElementsByClassName(id)[0];
         element.style.display = 'block';
     }
 }
