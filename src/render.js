@@ -124,20 +124,16 @@ function editTask(id) {
 
 function hideElement(id) {
     let element = document.getElementById(id);
-    if (element) {
-        element.style.display = 'none';
-    } else {
+    if(!element) {
         element = document.getElementsByClassName(id)[0];
-        element.style.display = 'none';
     }
+    element.style.display = 'none';
 }
 
 function showElement(id) {
     let element = document.getElementById(id);
-    if (element) {
-        element.style.display = 'block';
-    } else {
+    if(!element) {
         element = document.getElementsByClassName(id)[0];
-        element.style.display = 'block';
     }
+    element.style.display = 'block';
 }
