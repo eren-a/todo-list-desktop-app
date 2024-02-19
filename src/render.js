@@ -39,12 +39,10 @@ function deleteElement(div, id) {
 function addTask() {
     const input = document.getElementById('text-input')
     description = input.value;
-
-    // creat a task using description
-    createTask(description);
-    // delete input, button and div
+    if (description) {
+        createTask(description);
+    }
     document.querySelector('.new-Task-Input').remove();
-    // show create button
     showElement('create');
 }
 
@@ -98,7 +96,7 @@ function editTask(id) {
     const task = document.getElementById(id);
     // remove 2 characters (text content of buttons)
     let oldContent = task.textContent.slice(0, -2);
-    
+
     // create input field with old text content
     const inputField = document.createElement('input');
     inputField.id = '100';
