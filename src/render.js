@@ -30,12 +30,6 @@ function createInputField() {
 }
 
 
-function deleteElement(div, id) {
-    const container = document.querySelector(div);
-    container.removeChild(document.getElementById(id));
-}
-
-
 function addTask() {
     const input = document.getElementById('text-input')
     description = input.value;
