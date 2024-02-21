@@ -24,6 +24,11 @@ button {
   height: 30px;
 }
 
+.new-Task-Input {
+  display: flex;
+  justify-self: center;
+}
+
 .all-tasks div {
   justify-content: center;
   align-items: center;

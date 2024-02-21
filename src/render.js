@@ -8,8 +8,7 @@ function createInputField() {
     hideElement('create');
 
     // create text field
-    const input = document.createElement('input')
-
+    const input = document.createElement('input');
     input.type = 'text';
     input.id = 'text-input';
     input.placeholder = 'Type something...';
@@ -20,28 +19,50 @@ function createInputField() {
     enterButton.textContent = '+';
     enterButton.onclick = addTask;
 
+    // create coloring buttons
+    const color = document.createElement('input');
+    color.type = 'color';
+    color.id = 'color-input';
+    color.value = randomizedColor();
+
+
     // add to div and body
     const newTaskInput = document.createElement('div');
     newTaskInput.className = 'new-Task-Input';
     newTaskInput.appendChild(input);
     newTaskInput.appendChild(enterButton);
+    newTaskInput.append(color);
     // div at the top of the body
     document.querySelector('.interface-container').appendChild(newTaskInput);
 }
 
 
 function addTask() {
-    const input = document.getElementById('text-input')
-    description = input.value;
+    let description = document.getElementById('text-input').value;
+    let color = document.getElementById('color-input').value;
     if (description) {
-        createTask(description);
+        createTask(description, color);
     }
     document.querySelector('.new-Task-Input').remove();
     showElement('create');
 }
 
+function randomizedColor() {
+    const r = Math.floor(Math.random() * (255 - 50 + 1)) + 50;
+    const g = Math.floor(Math.random() * (255 - 50 + 1)) + 50;
+    const b = Math.floor(Math.random() * (255 - 50 + 1)) + 50;
+    return rgbToHex(r,g,b);
+}
 
-function createTask(description) {
+function rgbToHex(r, g, b) {
+    const hexR = r.toString(16).padStart(2, '0');
+    const hexG = g.toString(16).padStart(2, '0');
+    const hexB = b.toString(16).padStart(2, '0');
+
+    return `#${hexR}${hexG}${hexB}`;
+}
+
+function createTask(description, color) {
     // access a specific div (todo create an empty div for all tasks)
     const allTasksDiv = document.querySelector('.all-tasks');
 
@@ -50,6 +71,10 @@ function createTask(description) {
     randomID = Math.floor(100000 + Math.random() * 900000);
     newDiv.id = randomID;
     newDiv.textContent = description;
+
+    // bigger background => cant see the whole gradient
+    newDiv.style.backgroundSize = '150% 150%';
+    newDiv.style.backgroundImage = `linear-gradient(45deg, ${color} 20%, white)`;
 
     const removeButton = addRemoveButton(randomID);
 
@@ -118,7 +143,7 @@ function editTask(id) {
 
 function hideElement(id) {
     let element = document.getElementById(id);
-    if(!element) {
+    if (!element) {
         element = document.getElementsByClassName(id)[0];
     }
     element.style.display = 'none';
@@ -126,7 +151,7 @@ function hideElement(id) {
 
 function showElement(id) {
     let element = document.getElementById(id);
-    if(!element) {
+    if (!element) {
         element = document.getElementsByClassName(id)[0];
     }
     element.style.display = 'block';
