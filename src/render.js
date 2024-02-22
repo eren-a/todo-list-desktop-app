@@ -76,12 +76,12 @@ function createTask(description, color) {
     newDiv.style.backgroundSize = '150% 150%';
     newDiv.style.backgroundImage = `linear-gradient(45deg, ${color} 20%, white)`;
 
-    const removeButton = addRemoveButton(randomID);
+    const checkbox = addCheckbox(randomID);
 
     const editButton = addEditButton(randomID);
 
     // add div and buttons to div
-    newDiv.appendChild(removeButton);
+    newDiv.appendChild(checkbox);
     newDiv.appendChild(editButton);
     allTasksDiv.appendChild(newDiv);
 }
@@ -96,14 +96,17 @@ function addEditButton(id) {
     return editButton;
 }
 
-function addRemoveButton(id) {
-    const removeButton = document.createElement('button');
-    removeButton.id = id;
-    removeButton.textContent = "-";
-    removeButton.onclick = function () {
-        document.getElementById(removeButton.id).remove();
+function addCheckbox(id) {
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = id;
+    checkbox.onclick = function () {
+        document.getElementById(id).classList.add('fade-out');
+        setTimeout(function() {
+            document.getElementById(checkbox.id).remove();
+        }, 500);
     };
-    return removeButton;
+    return checkbox;
 }
 
 function editTask(id) {
@@ -131,7 +134,7 @@ function editTask(id) {
         // document.getElementById(id).remove();
         // createTask(inputField.value);
         document.getElementById(id).textContent = inputField.value;
-        task.appendChild(addRemoveButton(id));
+        task.appendChild(addCheckbox(id));
         task.appendChild(addEditButton(id));
         showElement('all-tasks');
         showElement('interface-container');
