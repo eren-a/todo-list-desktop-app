@@ -116,8 +116,8 @@ function editTask(id) {
 
     // get old text content
     const task = document.getElementById(id);
-    // remove 2 characters (text content of buttons)
-    let oldContent = task.textContent.slice(0, -2);
+    // remove 1 character (text content of button)
+    let oldContent = task.textContent.slice(0, -1);
 
     // create input field with old text content
     const inputField = document.createElement('input');
@@ -131,8 +131,6 @@ function editTask(id) {
     enterButton.onclick = function () {
         document.getElementById('100').remove();
         document.getElementById('101').remove();
-        // document.getElementById(id).remove();
-        // createTask(inputField.value);
         document.getElementById(id).textContent = inputField.value;
         task.appendChild(addCheckbox(id));
         task.appendChild(addEditButton(id));
