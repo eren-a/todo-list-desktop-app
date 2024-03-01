@@ -88,17 +88,31 @@ function createTask(description, color) {
 
 function addEditButton(id) {
     const editButton = document.createElement('button');
+    editButton.className = "edit"
     editButton.id = id;
-    editButton.textContent = "?";
     editButton.onclick = function () {
         editTask(editButton.id);
     };
     return editButton;
 }
-
+/*
 function addCheckbox(id) {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+    checkbox.id = id;
+    checkbox.onclick = function () {
+        document.getElementById(id).classList.add('fade-out');
+        setTimeout(function() {
+            document.getElementById(checkbox.id).remove();
+        }, 500);
+    };
+    return checkbox;
+}
+*/
+
+function addCheckbox(id) {
+    const checkbox = document.createElement('button');
+    checkbox.className = "checkbox"
     checkbox.id = id;
     checkbox.onclick = function () {
         document.getElementById(id).classList.add('fade-out');
@@ -116,8 +130,7 @@ function editTask(id) {
 
     // get old text content
     const task = document.getElementById(id);
-    // remove 1 character (text content of button)
-    let oldContent = task.textContent.slice(0, -1);
+    let oldContent = task.textContent;
 
     // create input field with old text content
     const inputField = document.createElement('input');
@@ -126,11 +139,10 @@ function editTask(id) {
 
     // enter button
     const enterButton = document.createElement('button');
-    enterButton.id = '101';
-    enterButton.textContent = 'ok';
+    enterButton.id = 'ok';
     enterButton.onclick = function () {
         document.getElementById('100').remove();
-        document.getElementById('101').remove();
+        document.getElementById('ok').remove();
         document.getElementById(id).textContent = inputField.value;
         task.appendChild(addCheckbox(id));
         task.appendChild(addEditButton(id));

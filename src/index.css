@@ -8,25 +8,82 @@ body {
 button {
   width: 30px;
   height: 30px;
-  background-color: rgb(192, 192, 192);
+  background-color: rgb(255, 255, 255);
   border-radius: 8px;
-  border-width: 0;
+  border-width: 1px;
   color: #333333;
   cursor: pointer;
-  display: inline-block;
+
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
+
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: rgb(221, 221, 221);
+}
+
+.edit {
+  width: 20px;
+  height: 20px;
+  border-width: 0;
+  background: url(images/edit.svg);
+  background-size: 100% 100%;
+
+  transition: background-color 0.2s;
+}
+
+.edit:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border-width: 0;
+  background: url(images/check.svg);
+  background-size: 100% 100%;
+
+  transition: background-color 0.2s;
+}
+
+.checkbox:hover {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 #create {
   width: 80px;
   height: 30px;
+  transform: translateY(5px);
 }
+
+#enter {
+  margin: 5px;
+  font-weight: bold;
+}
+
+#ok {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  transform: translateY(8px);
+  background: url(images/check.svg);
+  background-size: 100% 100%;
+
+  transition: background-color 0.2s;
+}
+
+#ok:hover {
+  background-color: rgb(221, 221, 221);
+}
+
 
 .new-Task-Input {
   display: flex;
   justify-self: center;
+  align-items: center;
 }
 
 .all-tasks div {
@@ -51,5 +108,14 @@ button {
 
 .fade-out {
   opacity: 0;
-  transition: opacity 0.1s ease-out;
+  transition: opacity 0.2s;
 }
+
+.interface-container {
+  height: 40px;
+}
+
+input {
+  height: 30px;
+}
+
